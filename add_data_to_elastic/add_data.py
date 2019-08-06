@@ -2,13 +2,13 @@ from elasticsearch import helpers,Elasticsearch
 import pandas as pd
 import json,sys
 
+# convert .tsv to JSON data
 df = pd.read_csv('word_search.tsv',sep='\t')
-# df = df.to_csv('words1',sep='\t')
-# df = pd.read_csv('words1',sep='\t')
 df.to_json('words',orient='records')
 
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
+# bulk populate index with json data
 actions = []
 with open('words','r') as json_file:
     body = json.load(json_file)
@@ -22,7 +22,7 @@ with open('words','r') as json_file:
         })
 helpers.bulk(es, actions, index='word_list', doc_type='words')
 
-# t = es.search(index="words_list",body={"from":0,"size":10,"query":{"match":{'word':'the'}}})
+# check item with id = 0 in index
 t = es.get(index='word_list',doc_type='words',id=0)
 print(t)
 
