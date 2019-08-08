@@ -1,5 +1,7 @@
 # Mac
 .DS_Store
+.env
+partialwordmatcher/.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
