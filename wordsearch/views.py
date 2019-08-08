@@ -55,9 +55,9 @@ def partial_search(request):
             #getting data from index
             temp_word = {}
             for k in t['hits']['hits']:
-                word = k['_source']['word']
+                words = k['_source']['word']
                 score = k['_source']['usage_frequency']
-                temp_dict = {word:score}
+                temp_dict = {words:score}
                 if temp_dict not in temp_word.items():
                     temp_word.update(temp_dict)
             
